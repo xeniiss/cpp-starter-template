@@ -26,6 +26,17 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
+# code coverage - lcov
+option(LCOV_COVERAGE "build code coverage" OFF)
+if (CMAKE_BUILD_TYPE MATCHES Debug AND LCOV_COVERAGE)
+    include(CodeCoverage)
+    append_coverage_compiler_flags()
+    setup_target_for_coverage_lcov(
+          NAME ${PROJECT_NAME}_coverage
+          EXECUTABLE tests
+          EXCLUDE "${PROJECT_SOURCE_DIR}/thirdparty/**/*" "/usr/**/*" "/Library/**/*")
+endif()
+
 add_subdirectory(src)
 add_subdirectory(thirdparty)
 add_subdirectory(test)

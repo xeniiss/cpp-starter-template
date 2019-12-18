@@ -24,6 +24,18 @@ jobs:
       - run:
           name: test
           command: './_build/bin/tests'
+      - run:
+          name: install prerequisite for coverage
+          command: 'apt-get update && apt-get install -y lcov curl'
+      - run:
+          name: generate coverage config
+          command: 'cmake -H. -B_coverage -DCMAKE_BUILD_TYPE=Debug -DLCOV_COVERAGE=On'
+      - run:
+          name: build coverage
+          command: 'cmake --build _coverage -- starter-template_coverage'
+      - run:
+          name: codecov
+          command: 'curl -s https://codecov.io/bash | bash'
 
 workflows:
   version: 2
