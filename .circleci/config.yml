@@ -3,21 +3,30 @@ version: 2
 jobs:
   build-linux:
     docker:
-      - image: "debian:stretch"
+      - image: "gcc:7"
     steps:
       - checkout
       - run:
-          name: Installing GCC
-          command: 'apt-get update && apt-get install -y gcc g++'
+          name: install sudo
+          command: 'apt-get update && apt-get install -y sudo'
       - run:
-          name: Install CMAKE
+          name: install cmake
           command: 'apt-get update && sudo apt-get install -y cmake'
       - run:
-          name: Creating Build Files
+          name: update submodule
+          command: 'git submodule update --init'
+      - run:
+          name: generate build config
           command: 'cmake -H. -B_build'
       - run:
-          name: Creating Binary Files
+          name: build project
           command: 'cmake --build _build'
       - run:
-          name: Point Unit Testing
-          command: './bin/tests'
+          name: test
+          command: './_build/bin/tests'
+
+workflows:
+  version: 2
+  build-test:
+    jobs:
+      - build-linux
