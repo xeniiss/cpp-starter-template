@@ -27,8 +27,8 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # code coverage - lcov
-option(LCOV_COVERAGE "build code coverage" OFF)
-if (CMAKE_BUILD_TYPE MATCHES Debug AND LCOV_COVERAGE)
+option(COVERAGE "build code coverage" OFF)
+if (CMAKE_BUILD_TYPE MATCHES Debug AND COVERAGE)
     include(CodeCoverage)
     append_coverage_compiler_flags()
     setup_target_for_coverage_lcov(
