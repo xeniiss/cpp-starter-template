@@ -5,6 +5,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 file(GLOB sources
     ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
+find_package(Catch2 CONFIG REQUIRED)
+
 add_executable(${target}
     ${sources})
 
@@ -33,5 +35,5 @@ target_link_libraries(${target}
     PRIVATE
     ${DEFAULT_LINKER_OPTIONS}
     template_lib
-    doctest
+    Catch2::Catch2
 )
