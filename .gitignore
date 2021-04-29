@@ -222,3 +222,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/c++,cmake,linux,clion,macos,windows,visualstudiocode
+
+# vcpkg manifests
+vcpkg_installed/
+vcpkg-manifest-install.log
